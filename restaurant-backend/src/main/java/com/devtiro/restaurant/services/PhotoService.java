@@ -1,4 +1,4 @@
-package com.devtiro.restaurant.service;
+package com.devtiro.restaurant.services;
 
 import com.devtiro.restaurant.domain.entities.Photo;
 import org.springframework.core.io.Resource;

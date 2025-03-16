@@ -3,7 +3,7 @@ package com.devtiro.restaurant.controllers;
 import com.devtiro.restaurant.domain.dtos.PhotoDto;
 import com.devtiro.restaurant.domain.entities.Photo;
 import com.devtiro.restaurant.mappers.PhotoMapper;
-import com.devtiro.restaurant.service.PhotoService;
+import com.devtiro.restaurant.services.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;

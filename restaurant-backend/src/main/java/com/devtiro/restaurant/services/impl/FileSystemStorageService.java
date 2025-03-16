@@ -1,7 +1,7 @@
-package com.devtiro.restaurant.service.impl;
+package com.devtiro.restaurant.services.impl;
 
 import com.devtiro.restaurant.exceptions.StorageException;
-import com.devtiro.restaurant.service.StorageService;
+import com.devtiro.restaurant.services.StorageService;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

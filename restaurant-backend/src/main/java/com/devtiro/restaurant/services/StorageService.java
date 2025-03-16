@@ -1,4 +1,4 @@
-package com.devtiro.restaurant.service;
+package com.devtiro.restaurant.services;
 
 import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
