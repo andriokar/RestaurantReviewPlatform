@@ -30,6 +30,9 @@ public class Restaurant {
     @Field(type = FieldType.Keyword)
     private String contactInformation;
 
+    @Field(type = FieldType.Keyword)
+    private String cuisineType;
+
     @Field(type = FieldType.Float)
     private Float averageRating;
 
