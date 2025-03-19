@@ -29,7 +29,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         GeoLocation geoLocation = geoLocationService.geoLocate(address);
         GeoPoint geoPoint = new GeoPoint(geoLocation.getLatitude(), geoLocation.getLongitude());
 
-        List<String> photoIds = request.getPhotoId();
+        List<String> photoIds = request.getPhotoIds();
         List<Photo> photos = photoIds.stream().map(photoUrl -> Photo.builder()
                 .url(photoUrl)
                 .uploadDate(LocalDateTime.now())

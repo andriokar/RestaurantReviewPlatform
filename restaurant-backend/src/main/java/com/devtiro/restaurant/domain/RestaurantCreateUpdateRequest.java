@@ -25,5 +25,5 @@ public class RestaurantCreateUpdateRequest {
 
     private OperatingHours operatingHours;
 
-    private List<String> photoId;
+    private List<String> photoIds;
 }
