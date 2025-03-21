@@ -30,7 +30,7 @@ public interface RestaurantMapper {
     GeoPointDto toGeoPointDto(GeoPoint geoPoint);
 
     @Named("populateTotalReviews")
-    private Integer populateTotalReviews(List<Review> reviews) {
+    default Integer populateTotalReviews(List<Review> reviews) {
         return reviews.size();
     }
 }
