@@ -5,6 +5,7 @@ import com.devtiro.restaurant.domain.RestaurantCreateUpdateRequest;
 import com.devtiro.restaurant.domain.entities.Address;
 import com.devtiro.restaurant.domain.entities.Photo;
 import com.devtiro.restaurant.domain.entities.Restaurant;
+import com.devtiro.restaurant.exceptions.RestaurantNotFoundException;
 import com.devtiro.restaurant.repositories.RestaurantRepository;
 import com.devtiro.restaurant.services.GeoLocationService;
 import com.devtiro.restaurant.services.RestaurantService;
@@ -87,5 +88,36 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Optional<Restaurant> getRestaurant(String id) {
         return restaurantRepository.findById(id);
+    }
+
+    @Override
+    public Restaurant updateRestaurant(String id, RestaurantCreateUpdateRequest request) {
+        Restaurant restaurant = getRestaurant(id)
+                .orElseThrow(() -> new RestaurantNotFoundException(
+                                "Restaurant with ID: %s does not exist".formatted(id)
+                        )
+                );
+
+        GeoLocation newGeoLocation = geoLocationService.geoLocate(request.getAddress());
+        GeoPoint newGeoPoint = new GeoPoint(newGeoLocation.getLatitude(), newGeoLocation.getLongitude());
+
+        List<String> photoIds = request.getPhotoIds();
+        List<Photo> photos = photoIds.stream().map(photoUrl -> Photo.builder()
+                .url(photoUrl)
+                .uploadDate(LocalDateTime.now())
+                .build()
+        ).toList();
+
+        Restaurant updatedRestaurant = Restaurant.builder()
+                .name(request.getName())
+                .cuisineType(request.getCuisineType())
+                .contactInformation(request.getContactInformation())
+                .address(request.getAddress())
+                .geoLocation(newGeoPoint)
+                .operatingHours(request.getOperatingHours())
+                .photos(photos)
+                .build();
+
+        return restaurantRepository.save(restaurant);
     }
 }
