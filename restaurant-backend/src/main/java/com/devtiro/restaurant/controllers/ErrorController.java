@@ -2,6 +2,7 @@ package com.devtiro.restaurant.controllers;
 
 import com.devtiro.restaurant.domain.dtos.ErrorDto;
 import com.devtiro.restaurant.exceptions.BaseException;
+import com.devtiro.restaurant.exceptions.RestaurantNotFoundException;
 import com.devtiro.restaurant.exceptions.StorageException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,19 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 @Slf4j
 public class ErrorController {
+
+    /* Handle restaurant not found exceptions */
+    @ExceptionHandler(RestaurantNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleRestaurantNotFoundException(RestaurantNotFoundException exception) {
+        log.error("Validation error", exception);
+
+        ErrorDto errorDto = ErrorDto.builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .message("The specified restaurant wasn't found")
+                .build();
+
+        return new ResponseEntity<>(errorDto, HttpStatus.NOT_FOUND);
+    }
 
     /* Handle data validation exceptions */
     @ExceptionHandler(MethodArgumentNotValidException.class)
