@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,5 +77,14 @@ public class RestaurantController {
                 restaurantId, restaurantMapper.toRestaurantCreateUpdateRequest(requestDto)
         );
         return ResponseEntity.ok(restaurantMapper.toRestaurantDto(updatedRestaurant));
+    }
+
+    @DeleteMapping(path = "/{restaurant_id}")
+    public ResponseEntity<Void> deleteRestaurant(
+            @PathVariable("restaurant_id") String restaurantId
+    ) {
+        restaurantService.deleteRestaurant(restaurantId);
+
+        return ResponseEntity.notFound().build();
     }
 }
